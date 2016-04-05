@@ -23,7 +23,7 @@ var brickColor = "rgb(255,5,5)";
 var chopperHeight = 26;
 var chopperWidth = 77;
 var chopper = new Image();
-chopper.src = "chopper.png"
+chopper.src = "images/shark.png"
 
 var backgroundHeight = 350;
 var backgroundWidth = 702;
@@ -52,7 +52,7 @@ function setup() {
     gameState = "pause";
     clearScreen();
     
-    chopper.src = "chopper.png";
+    chopper.src = "images/shark.png";
 
     brickList = new Array();
     smokeList = new Array();
