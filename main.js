@@ -113,12 +113,19 @@ function draw() {
     }
 }
 
-function drawCrash() {
+function drawCrash() {    
     chopper.src = "chopper_burn.png";
     ctx.drawImage(chopper, chopperX, chopperY, chopperWidth, chopperHeight);
-    ctx.font = "40 Bold Verdana"
-
-    ctx.fillText("YOU LOSE!", 240, 80);
+    
+    ctx.fillstyle = "white";
+    ctx.strokeStyle = "black";
+    
+    ctx.font = "40px Bold Verdana";
+    ctx.fillText("Game Over!", 240, 240);
+    ctx.strokeText("Game Over!", 240, 240);
+    
+    ctx.fill();
+    ctx.stroke();
 }
 
 function animateChopper() {
