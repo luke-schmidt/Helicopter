@@ -10,7 +10,7 @@ var smokeColor = "rgb(209,209,209)";
 
 var initialAscentRate = 1.0;
 var initialDescentRate = 1.5; // in pixels per frame
-var gravity = .08  // how quickly the descent rate increases
+var gravity = .08;  // how quickly the descent rate increases
 var liftFactor = .04; // how quickly the climb rate increases
 var terminalVelocity = 5; // descent and ascent rate will never exceed this
 
@@ -23,13 +23,13 @@ var brickColor = "rgb(255,5,5)";
 var chopperHeight = 26;
 var chopperWidth = 77;
 var chopper = new Image();
-chopper.src = "chopper.png"
+chopper.src = "chopper.png";
 
 var backgroundHeight = 350;
 var backgroundWidth = 702;
 var backgroundV = 2; // background scroll velocity
 var background = new Image();
-background.src = "bg.jpg"
+background.src = "bg.jpg";
 
 
 /* variables that will be reset every time setup is called: */
@@ -46,9 +46,12 @@ var ascentRate;
 var descentRate;
 
 
-window.onload = function () { setup(); }
+window.onload = function () { setup(); };
 
 function setup() {
+// lock the device orientation
+//screen.lockOrientation('landscape');
+    
     gameState = "pause";
     clearScreen();
     
@@ -93,7 +96,7 @@ function pause() {
 }
 
 function stop() {
-    gameState = "stop"
+    gameState = "stop";
 }
 
 function draw() {
@@ -162,9 +165,9 @@ function animateBricks() {
             brickList.splice(i, 1); // remove the brick that's outside the canvas
         } 
         else {
-            brickList[i].x = brickList[i].x - brickV
-            ctx.fillStyle = brickColor
-            ctx.fillRect(brickList[i].x, brickList[i].y, brickWidth, brickHeight)
+            brickList[i].x = brickList[i].x - brickV;
+            ctx.fillStyle = brickColor;
+            ctx.fillRect(brickList[i].x, brickList[i].y, brickWidth, brickHeight);
             
             // If enough distance (based on brickInterval) has elapsed since 
             // the last brick was created, create another one
@@ -183,9 +186,9 @@ function animateSmoke() {
             smokeList.splice(i, 1); // remove the smoke particle that outside the canvas
         }
         else {
-            smokeList[i].x = smokeList[i].x - brickV
-            ctx.fillStyle = smokeColor
-            ctx.fillRect(smokeList[i].x, smokeList[i].y, 2, 2)
+            smokeList[i].x = smokeList[i].x - brickV;
+            ctx.fillStyle = smokeColor;
+            ctx.fillRect(smokeList[i].x, smokeList[i].y, 2, 2);
         }
     }
 }
@@ -219,16 +222,16 @@ function gameOver() {
 }
 
 function addBrick() {
-    newBrick = {}
+    newBrick = {};
     newBrick.x = canvas.width;
-    newBrick.y = Math.floor(Math.random() * (canvas.height-brickHeight))
+    newBrick.y = Math.floor(Math.random() * (canvas.height-brickHeight));
     brickList.push(newBrick);
 }
 
 function addSmokeTrail() {
-    newParticle = {}
-    newParticle.x = chopperX
-    newParticle.y = chopperY + 4
+    newParticle = {};
+    newParticle.x = chopperX;
+    newParticle.y = chopperY + 4;
     smokeList.push(newParticle);
 }
 
@@ -243,7 +246,7 @@ document.body.onmousedown = function() {
     if(!(mouseDown == 1)) {
         ++mouseDown;
     }
-}
+};
 document.body.onmouseup = function() {
     if(mouseDown > 0) {
         --mouseDown;
@@ -251,7 +254,7 @@ document.body.onmouseup = function() {
     if(gameState == "pause") {
         play();
     }
-}
+};
 
 document.body.onkeypress = function(e) {
     if(e.keyCode == 32) { // spacebar
@@ -263,10 +266,10 @@ document.body.onkeypress = function(e) {
     }
     if(e.keyCode == 114) {
         if(gameState != "play") {
-            setup()
+            setup();
         }
     }
-}
+};
 
 
 /**

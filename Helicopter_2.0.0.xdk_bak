@@ -1,12 +1,12 @@
 {
   "project": {
-    "projectSettingsVersion": "3.0.0",
+    "projectSettingsVersion": "2.0.0",
     "creationData": {
       "type": "Import",
-      "projectTypeName": "com.intel.xdk.projecttype.jsapp",
+      "projectTypeName": "com.intel.xdk.projecttype.webapp",
       "src": "",
       "projectGuid": "d17eb83e-cd0e-4527-93f7-e8852550c6f1",
-      "lastModifiedDate": 1460038774906,
+      "lastModifiedDate": 1459432660782,
       "creationDate": 1459432656758
     },
     "sourceDirectory": "",
@@ -16,15 +16,7 @@
     "testDirectory": "test",
     "startFile": "index.html",
     "projectTags": [],
-    "projectFiles": {
-      "xdk-publish-meta-data.json": {
-        "settings": {
-          "project": {
-            "XDK-not-deployed": "True"
-          }
-        }
-      }
-    },
+    "projectFiles": {},
     "projectDirectories": {
       "xdk": {
         "settings": {
@@ -35,80 +27,114 @@
       }
     },
     "libraries": [],
-    "cordovaPlugins": [
-      {
-        "id": "cordova-plugin-screen-orientation",
-        "name": "Screen Orientation",
-        "version": "1.4.0",
-        "originType": "cordova.io",
-        "origin": "cordova-plugin-screen-orientation",
-        "gitref": "",
-        "paramvals": {},
-        "sourceLocation": "plugins/cordova-plugin-screen-orientation",
-        "selectedState": "Included",
-        "checksum": "43f9954b",
-        "dependsOn": [],
-        "topLevel": true,
-        "cordovaVersion": ">=3.0.0",
-        "permissions": {},
-        "description": "Adds Screen Orientation API lock and unlock functions to the global screen object in android, iOS, WP8, W8.1, and BB10.",
-        "data": {},
-        "dependedBy": []
-      }
-    ],
+    "cordovaPlugins": [],
     "serviceMethods": [],
     "buildConfigurations": {
-      "iOS": {
-        "platform_": "ios",
-        "runtime_": "Cordova 3.x",
-        "name_": "iOS",
+      "Android": {
+        "platform_": "android",
+        "runtime_": "W3C on Cordova",
+        "name_": "Android",
         "preferences_": {
-          "ios-configuration": "adhoc",
-          "deployment-target": "6"
+          "android-minSdkVersion": "14",
+          "android-targetSdkVersion": "19",
+          "android-installLocation": "auto"
         },
         "isActive_": true,
         "appName_": "Helicopter",
         "appID_": "not.yet.specified",
         "appAccess_": {
-          "mode": "whitelist",
+          "mode": "legacy",
           "network": [
             "*"
           ],
           "intents": [],
-          "navigation": [],
-          "properties": {}
+          "navigation": []
         },
         "icons_": [],
         "splashes_": [],
         "addlPermissions_": "",
         "excludedLibraries_": "",
-        "certificateId_": "",
+        "appVersion_": "0.0.1",
+        "appVersionCode_": "1",
+        "crosswalkVersion_": "14",
+        "cordovaCLIVersion_": "5.1.1"
+      },
+      "Android-Crosswalk": {
+        "platform_": "android",
+        "runtime_": "W3C on Crosswalk",
+        "name_": "Android-Crosswalk",
+        "preferences_": {
+          "android-minSdkVersion": "14",
+          "android-targetSdkVersion": "19",
+          "android-installLocation": "auto"
+        },
+        "isActive_": true,
+        "appName_": "Helicopter",
+        "appID_": "not.yet.specified",
+        "appAccess_": {
+          "mode": "legacy",
+          "network": [
+            "*"
+          ],
+          "intents": [],
+          "navigation": []
+        },
+        "icons_": [],
+        "splashes_": [],
+        "addlPermissions_": "",
+        "excludedLibraries_": "",
+        "appVersion_": "0.0.1",
+        "appVersionCode_": "1",
+        "crosswalkVersion_": "15",
+        "cordovaCLIVersion_": "5.1.1"
+      },
+      "iOS": {
+        "platform_": "ios",
+        "runtime_": "W3C on Cordova",
+        "name_": "iOS",
+        "preferences_": {
+          "ios-target": "6",
+          "ios-configuration": "adhoc"
+        },
+        "isActive_": true,
+        "appName_": "Helicopter",
+        "appID_": "not.yet.specified",
+        "appAccess_": {
+          "mode": "legacy",
+          "network": [
+            "*"
+          ],
+          "intents": [],
+          "navigation": []
+        },
+        "icons_": [],
+        "splashes_": [],
+        "addlPermissions_": "",
+        "excludedLibraries_": "",
         "appVersion_": "0.0.1",
         "cordovaCLIVersion_": "5.1.1",
         "iosProvs_": []
       },
       "Windows8": {
         "platform_": "windows8",
-        "runtime_": "Cordova 3.x",
+        "runtime_": "W3C on Cordova",
         "name_": "Windows8",
         "preferences_": {},
         "isActive_": true,
         "appName_": "Helicopter",
         "appID_": "not.yet.specified",
         "appAccess_": {
-          "mode": "whitelist",
+          "mode": "legacy",
           "network": [
             "*"
           ],
           "intents": [],
-          "navigation": [],
-          "properties": {}
+          "navigation": []
         },
         "icons_": [],
         "splashes_": [],
         "addlPermissions_": "",
         "excludedLibraries_": "",
-        "certificateId_": "",
         "appVersion_": "0.0.0.1",
         "cordovaCLIVersion_": "5.1.1"
       },
@@ -117,7 +143,7 @@
         "runtime_": "W3C",
         "name_": "WebApp",
         "preferences_": {},
-        "isActive_": false,
+        "isActive_": true,
         "appName_": "Helicopter",
         "appID_": "not.yet.specified",
         "appAccess_": {
@@ -132,7 +158,6 @@
         "splashes_": [],
         "addlPermissions_": "",
         "excludedLibraries_": "",
-        "certificateId_": "",
         "appVersion_": "0.0.1"
       },
       "Firefox": {
@@ -140,7 +165,7 @@
         "runtime_": "W3C on Firefox OS",
         "name_": "Firefox",
         "preferences_": {},
-        "isActive_": false,
+        "isActive_": true,
         "appName_": "Helicopter",
         "appID_": "not.yet.specified",
         "appAccess_": {
@@ -155,7 +180,6 @@
         "splashes_": [],
         "addlPermissions_": "",
         "excludedLibraries_": "",
-        "certificateId_": "",
         "appVersion_": "0.0.1"
       },
       "Chrome": {
@@ -163,7 +187,7 @@
         "runtime_": "W3C on Chrome OS",
         "name_": "Chrome",
         "preferences_": {},
-        "isActive_": false,
+        "isActive_": true,
         "appName_": "Helicopter",
         "appID_": "not.yet.specified",
         "appAccess_": {
@@ -178,7 +202,6 @@
         "splashes_": [],
         "addlPermissions_": "",
         "excludedLibraries_": "",
-        "certificateId_": "",
         "appVersion_": "0.0.1"
       },
       "Facebook": {
@@ -186,7 +209,7 @@
         "runtime_": "W3C on Facebook",
         "name_": "Facebook",
         "preferences_": {},
-        "isActive_": false,
+        "isActive_": true,
         "appName_": "Helicopter",
         "appID_": "not.yet.specified",
         "appAccess_": {
@@ -201,12 +224,11 @@
         "splashes_": [],
         "addlPermissions_": "",
         "excludedLibraries_": "",
-        "certificateId_": "",
         "appVersion_": "0.0.1"
       },
       "WP81": {
         "platform_": "wp81",
-        "runtime_": "Cordova 3.x",
+        "runtime_": "W3C on Cordova",
         "name_": "WP81",
         "preferences_": {},
         "isActive_": true,
@@ -224,41 +246,7 @@
         "splashes_": [],
         "addlPermissions_": "",
         "excludedLibraries_": "",
-        "certificateId_": "",
         "appVersion_": "0.0.0.1",
-        "cordovaCLIVersion_": "5.1.1"
-      },
-      "Android": {
-        "platform_": "android",
-        "runtime_": "Crosswalk with Cordova 3.x",
-        "name_": "Android",
-        "preferences_": {
-          "android-minSdkVersion": "14",
-          "android-targetSdkVersion": "19",
-          "android-installLocation": "auto",
-          "Fullscreen": true,
-          "Orientation": "landscape"
-        },
-        "isActive_": true,
-        "appName_": "Helicopter",
-        "appID_": "not.yet.specified",
-        "appAccess_": {
-          "mode": "whitelist",
-          "network": [
-            "*"
-          ],
-          "intents": [],
-          "navigation": [],
-          "properties": {}
-        },
-        "icons_": [],
-        "splashes_": [],
-        "addlPermissions_": "",
-        "excludedLibraries_": "",
-        "certificateId_": "",
-        "appVersion_": "0.0.1",
-        "appVersionCode_": "1",
-        "crosswalkVersion_": "15",
         "cordovaCLIVersion_": "5.1.1"
       }
     }
