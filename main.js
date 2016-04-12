@@ -15,29 +15,30 @@ var gravity = .08  // how quickly the descent rate increases
 var liftFactor = .04; // how quickly the climb rate increases
 var terminalVelocity = 5; // descent and ascent rate will never exceed this
 
-var brickV = 6; // brick velocity
-var brickInterval = 40; // difficulty level 
-var brickHeight = 60;
-var brickWidth = 30;
-var brickColor = "rgb(255,5,5)";
+var mineV = 6; // brick velocity
+var mineInterval = 40; // difficulty level 
+var mineHeight = 60;
+var mineWidth = 30;
+var mine = new Image();
+mine.src = "images/mine.jpg";
 
 var chopperHeight = 26;
 var chopperWidth = 77;
 var chopper = new Image();
-chopper.src = "chopper.png"
+chopper.src = "images/shark.png"
 
 var backgroundHeight = 350;
 var backgroundWidth = 702;
 var backgroundV = 2; // background scroll velocity
 var background = new Image();
-background.src = "bg.jpg"
-
+background.src = "images/underwater.jpg"
 
 /* variables that will be reset every time setup is called: */
 var chopperX;
 var chopperY;
 var iterationCount;
-var brickList;
+//var brickList;
+var mineList;
 var smokeList;
 var gameState;
 var score;
@@ -53,9 +54,10 @@ function setup() {
     gameState = "pause";
     clearScreen();
     
-    chopper.src = "chopper.png";
+    chopper.src = "images/shark.png";
 
-    brickList = new Array();
+//    brickList = new Array();
+    mineList = new Array();
     smokeList = new Array();
 
     chopperX = 100;
@@ -71,14 +73,16 @@ function setup() {
 
     ctx.font = font;
 
-    addBrick();
+//    addBrick();
+    addMine();
 
     ctx.drawImage(background, 0, 0, backgroundWidth, backgroundHeight);
     ctx.drawImage(chopper, chopperX, chopperY, chopperWidth, chopperHeight);
 
     ctx.fillStyle = textColor;
     ctx.fillText('Press spacebar to play/pause', 10, 340);
-}
+};
+
 
 function play() {
     if(gameState == "pause") {
@@ -102,7 +106,8 @@ function draw() {
         clearScreen();
         animateBackground();
         animateChopper();
-        animateBricks();
+//        animateBricks();
+        animateMines();
         ctx.font = font;
         ctx.fillStyle = textColor;
         ctx.fillText('Press spacebar to play/pause', 10, 340);
@@ -114,12 +119,19 @@ function draw() {
     }
 }
 
-function drawCrash() {
+function drawCrash() {    
     chopper.src = "chopper_burn.png";
     ctx.drawImage(chopper, chopperX, chopperY, chopperWidth, chopperHeight);
-    ctx.font = "40 Bold Verdana"
-
-    ctx.fillText("YOU LOSE!", 240, 80);
+    
+    ctx.fillstyle = "white";
+    ctx.strokeStyle = "black";
+    
+    ctx.font = "40px Bold Verdana";
+    ctx.fillText("Game Over!", 240, 240);
+    ctx.strokeText("Game Over!", 240, 240);
+    
+    ctx.fill();
+    ctx.stroke();
 }
 
 function animateChopper() {
@@ -253,21 +265,21 @@ var particles = [];
     animateSmoke();
 }
 
-function animateBricks() {
+
+function animateMines() {
     iterationCount++;
-    for(var i=0; i<brickList.length; i++) {
-        if(brickList[i].x < 0-brickWidth) {
-            brickList.splice(i, 1); // remove the brick that's outside the canvas
+    for(var i=0; i<mineList.length; i++) {
+        if(mineList[i].x < 0-mineWidth) {
+            mineList.splice(i, 1); // remove the brick that's outside the canvas
         } 
-        else {
-            brickList[i].x = brickList[i].x - brickV
-            ctx.fillStyle = brickColor
-            ctx.fillRect(brickList[i].x, brickList[i].y, brickWidth, brickHeight)
+        else { 
+            mineList[i].x = mineList[i].x - mineV;
+            ctx.drawImage(mine, mineList[i].x, mineList[i].y, mineWidth, mineHeight);
             
             // If enough distance (based on brickInterval) has elapsed since 
             // the last brick was created, create another one
-            if(iterationCount >= brickInterval) {
-                addBrick();
+            if(iterationCount >= mineInterval) {
+                addMine();
                 iterationCount = 0;
                 score=score+10;
             }
@@ -281,7 +293,7 @@ function animateSmoke() {
             smokeList.splice(i, 1); // remove the smoke particle that outside the canvas
         }
         else {
-            smokeList[i].x = smokeList[i].x - brickV
+            smokeList[i].x = smokeList[i].x - mineV
             ctx.fillStyle = smokeColor
             ctx.fillRect(smokeList[i].x, smokeList[i].y, 2, 2)
         }
@@ -303,9 +315,9 @@ function animateBackground() {
  * when the helicopter is merely close, and not actually contacting the brick.
  */
 function collisionCheck() {
-    for(var i=0; i<brickList.length; i++) {
-        if (chopperX < (brickList[i].x + brickWidth) && (chopperX + chopperWidth) > brickList[i].x
-                    && chopperY < (brickList[i].y + brickHeight) && (chopperY + chopperHeight) > brickList[i].y ) {
+    for(var i=0; i<mineList.length; i++) {
+        if (chopperX < (mineList[i].x + mineWidth) && (chopperX + chopperWidth) > mineList[i].x
+                    && chopperY < (mineList[i].y + mineHeight) && (chopperY + chopperHeight) > mineList[i].y ) {
             gameOver();
         }
     }
@@ -322,11 +334,11 @@ function gameOver() {
 			createExplosion(x, y, "#FF8518");
 }
 
-function addBrick() {
-    newBrick = {}
-    newBrick.x = canvas.width;
-    newBrick.y = Math.floor(Math.random() * (canvas.height-brickHeight))
-    brickList.push(newBrick);
+function addMine() {
+    newMine = {}
+    newMine.x = canvas.width;
+    newMine.y = Math.floor(Math.random() * (canvas.height-mineHeight))
+    mineList.push(newMine);
 }
 
 function addSmokeTrail() {
