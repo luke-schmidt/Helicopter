@@ -10,8 +10,8 @@ var smokeColor = "rgb(209,209,209)";
 
 var initialAscentRate = 1.0;
 var initialDescentRate = 1.5; // in pixels per frame
-var gravity = .08;  // how quickly the descent rate increases
-var liftFactor = .04; // how quickly the climb rate increases
+var gravity = 0.08;  // how quickly the descent rate increases
+var liftFactor = 0.04; // how quickly the climb rate increases
 var terminalVelocity = 5; // descent and ascent rate will never exceed this
 
 var brickV = 6; // brick velocity
