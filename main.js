@@ -79,6 +79,7 @@ function setup() {
     ctx.drawImage(background, 0, 0, backgroundWidth, backgroundHeight);
     ctx.drawImage(chopper, chopperX, chopperY, chopperWidth, chopperHeight);
 
+    ctx.font = "20px Bold Verdana";
     ctx.fillStyle = textColor;
     ctx.fillText('Press spacebar to play/pause', 10, 340);
 };
@@ -108,7 +109,7 @@ function draw() {
         animateChopper();
 //        animateBricks();
         animateMines();
-        ctx.font = font;
+        ctx.font = "20px Bold Verdana";
         ctx.fillStyle = textColor;
         ctx.fillText('Press spacebar to play/pause', 10, 340);
         ctx.fillText('Score:'+ score, 600, 340);
@@ -126,9 +127,13 @@ function drawCrash() {
     ctx.fillstyle = "white";
     ctx.strokeStyle = "black";
     
-    ctx.font = "40px Bold Verdana";
-    ctx.fillText("Game Over!", 240, 240);
-    ctx.strokeText("Game Over!", 240, 240);
+    ctx.font = "50px Bold Verdana";
+    ctx.fillText("Game Over!", 240, 140);
+    ctx.strokeText("Game Over!", 240, 140);
+    
+    ctx.font = "30px Bold Verdana";
+    ctx.fillText("Press R to Continue", 240, 240);
+    ctx.strokeText("Press R to Continue", 240, 240);
     
     ctx.fill();
     ctx.stroke();
