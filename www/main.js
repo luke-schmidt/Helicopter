@@ -11,8 +11,8 @@ var smokeColor = "rgb(209,209,209)";
 
 var initialAscentRate = 1.0;
 var initialDescentRate = 1.5; // in pixels per frame
-var gravity = .08  // how quickly the descent rate increases
-var liftFactor = .04; // how quickly the climb rate increases
+var gravity = 0.08;  // how quickly the descent rate increases
+var liftFactor = 0.04; // how quickly the climb rate increases
 var terminalVelocity = 5; // descent and ascent rate will never exceed this
 
 var mineV = 6; // brick velocity
@@ -48,9 +48,12 @@ var ascentRate;
 var descentRate;
 
 
-window.onload = function () { setup(); }
+window.onload = function () { setup(); };
 
 function setup() {
+// lock the device orientation
+//screen.lockOrientation('landscape');
+    
     gameState = "pause";
     clearScreen();
     
@@ -99,7 +102,7 @@ function pause() {
 }
 
 function stop() {
-    gameState = "stop"
+    gameState = "stop";
 }
 
 function draw() {
@@ -338,7 +341,6 @@ function gameOver() {
 			
 			createExplosion(x, y, "#FF8518");
 }
-
 function addMine() {
     newMine = {}
     newMine.x = canvas.width;
@@ -347,9 +349,9 @@ function addMine() {
 }
 
 function addSmokeTrail() {
-    newParticle = {}
-    newParticle.x = chopperX
-    newParticle.y = chopperY + 4
+    newParticle = {};
+    newParticle.x = chopperX;
+    newParticle.y = chopperY + 4;
     smokeList.push(newParticle);
 }
 
@@ -364,7 +366,7 @@ document.body.onmousedown = function() {
     if(!(mouseDown == 1)) {
         ++mouseDown;
     }
-}
+};
 document.body.onmouseup = function() {
     if(mouseDown > 0) {
         --mouseDown;
@@ -372,7 +374,7 @@ document.body.onmouseup = function() {
     if(gameState == "pause") {
         play();
     }
-}
+};
 
 document.body.onkeypress = function(e) {
     if(e.keyCode == 32) { // spacebar
@@ -384,10 +386,10 @@ document.body.onkeypress = function(e) {
     }
     if(e.keyCode == 114) {
         if(gameState != "play") {
-            setup()
+            setup();
         }
     }
-}
+};
 
 
 /**
