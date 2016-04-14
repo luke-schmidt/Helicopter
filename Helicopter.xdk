@@ -3,13 +3,13 @@
     "projectSettingsVersion": "3.0.0",
     "creationData": {
       "type": "Import",
-      "projectTypeName": "com.intel.xdk.projecttype.webapp",
+      "projectTypeName": "com.intel.xdk.projecttype.jsapp",
       "src": "",
-      "projectGuid": "efeeac02-8302-453d-ae71-82ff55a499af",
-      "lastModifiedDate": 1460471228035,
+      "projectGuid": "00000000-0000-0000-000000000000",
+      "lastModifiedDate": 1460472348633,
       "creationDate": 1460471217117
     },
-    "sourceDirectory": "",
+    "sourceDirectory": "www",
     "cordovaPluginsDirectory": "plugins",
     "gameAssetDirectory": "asset",
     "gameMetadata": {},
@@ -35,18 +35,38 @@
       }
     },
     "libraries": [],
-    "cordovaPlugins": [],
+    "cordovaPlugins": [
+      {
+        "id": "cordova-plugin-screen-orientation",
+        "name": "Screen Orientation",
+        "version": "1.4.0",
+        "originType": "cordova.io",
+        "origin": "cordova-plugin-screen-orientation",
+        "gitref": "",
+        "paramvals": {},
+        "sourceLocation": "plugins/cordova-plugin-screen-orientation",
+        "selectedState": "Included",
+        "checksum": "43f9954b",
+        "dependsOn": [],
+        "topLevel": true,
+        "cordovaVersion": ">=3.0.0",
+        "permissions": {},
+        "description": "Adds Screen Orientation API lock and unlock functions to the global screen object in android, iOS, WP8, W8.1, and BB10.",
+        "data": {},
+        "dependedBy": []
+      }
+    ],
     "serviceMethods": [],
     "buildConfigurations": {
       "Android": {
         "platform_": "android",
-        "runtime_": "W3C on Crosswalk",
+        "runtime_": "Crosswalk with Cordova 3.x",
         "name_": "Android",
         "preferences_": {
           "android-minSdkVersion": "14",
           "android-targetSdkVersion": "23",
           "android-installLocation": "auto",
-          "android-signed": true
+          "android-signed": false
         },
         "isActive_": true,
         "appName_": "Helicopter",
@@ -71,7 +91,7 @@
       },
       "iOS": {
         "platform_": "ios",
-        "runtime_": "W3C on Cordova",
+        "runtime_": "Cordova 3.x",
         "name_": "iOS",
         "preferences_": {
           "deployment-target": "8.0",
@@ -99,7 +119,7 @@
       },
       "Windows8": {
         "platform_": "windows8",
-        "runtime_": "W3C on Cordova",
+        "runtime_": "Cordova 3.x",
         "name_": "Windows8",
         "preferences_": {},
         "isActive_": true,
@@ -126,7 +146,7 @@
         "runtime_": "W3C",
         "name_": "WebApp",
         "preferences_": {},
-        "isActive_": true,
+        "isActive_": false,
         "appName_": "Helicopter",
         "appID_": "not.yet.specified",
         "appAccess_": {
@@ -149,7 +169,7 @@
         "runtime_": "W3C on Firefox OS",
         "name_": "Firefox",
         "preferences_": {},
-        "isActive_": true,
+        "isActive_": false,
         "appName_": "Helicopter",
         "appID_": "not.yet.specified",
         "appAccess_": {
@@ -172,7 +192,7 @@
         "runtime_": "W3C on Chrome OS",
         "name_": "Chrome",
         "preferences_": {},
-        "isActive_": true,
+        "isActive_": false,
         "appName_": "Helicopter",
         "appID_": "not.yet.specified",
         "appAccess_": {
@@ -195,7 +215,7 @@
         "runtime_": "W3C on Facebook",
         "name_": "Facebook",
         "preferences_": {},
-        "isActive_": true,
+        "isActive_": false,
         "appName_": "Helicopter",
         "appID_": "not.yet.specified",
         "appAccess_": {
@@ -215,7 +235,7 @@
       },
       "WP81": {
         "platform_": "wp81",
-        "runtime_": "W3C on Cordova",
+        "runtime_": "Cordova 3.x",
         "name_": "WP81",
         "preferences_": {},
         "isActive_": true,
