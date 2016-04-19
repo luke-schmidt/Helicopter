@@ -10,8 +10,8 @@ var smokeColor = "rgb(209,209,209)";
 
 var initialAscentRate = 1.0;
 var initialDescentRate = 1.5; // in pixels per frame
-var gravity = .08  // how quickly the descent rate increases
-var liftFactor = .04; // how quickly the climb rate increases
+var gravity = 0.08;  // how quickly the descent rate increases
+var liftFactor = 0.04; // how quickly the climb rate increases
 var terminalVelocity = 5; // descent and ascent rate will never exceed this
 
 var mineV = 6; // mine velocity
@@ -21,16 +21,18 @@ var mineWidth = 30;
 var mine = new Image();
 mine.src = "images/mine.jpg";
 
+
 var sharkHeight = 26;
 var sharkWidth = 77;
 var shark = new Image();
 shark.src = "images/shark.png"
 
+
 var backgroundHeight = 350;
 var backgroundWidth = 702;
 var backgroundV = 2; // background scroll velocity
 var background = new Image();
-background.src = "images/underwater.jpg"
+background.src = "images/underwater.jpg";
 
 /* variables that will be reset every time setup is called: */
 var sharkX;
@@ -46,10 +48,25 @@ var scrollVal;
 var ascentRate;
 var descentRate;
 
+$(document).ready(function() {
+    document.addEventListener("deviceready", onDeviceReady, false);
+    //uncomment for testing in Chrome browser
+    //onDeviceReady();
+});
 
-window.onload = function () { setup(); }
+function onDeviceReady() {
+    // lock the device orientation
+    console.log('Orientation is ' + screen.orientation);
+    screen.lockOrientation('landscape');
+}
+
+
+
+window.onload = function () { setup(); };
 
 function setup() {
+
+    
     gameState = "pause";
     clearScreen();
     
@@ -78,9 +95,8 @@ function setup() {
     ctx.drawImage(background, 0, 0, backgroundWidth, backgroundHeight);
     ctx.drawImage(shark, sharkX, sharkY, sharkWidth, sharkHeight);
 
-    ctx.fillStyle = textColor;
-    ctx.fillText('Press spacebar to play/pause', 10, 340);
 };
+
 
 
 function play() {
@@ -97,7 +113,7 @@ function pause() {
 }
 
 function stop() {
-    gameState = "stop"
+    gameState = "stop";
 }
 
 function draw() {
@@ -107,9 +123,8 @@ function draw() {
         animateShark();
 //        animateBricks();
         animateMines();
-        ctx.font = font;
+        ctx.font = "20px Bold Verdana";
         ctx.fillStyle = textColor;
-        ctx.fillText('Press spacebar to play/pause', 10, 340);
         ctx.fillText('Score:'+ score, 600, 340);
         
         collisionCheck();
@@ -125,9 +140,13 @@ function drawCrash() {
     ctx.fillstyle = "white";
     ctx.strokeStyle = "black";
     
-    ctx.font = "40px Bold Verdana";
-    ctx.fillText("Game Over!", 240, 240);
-    ctx.strokeText("Game Over!", 240, 240);
+    ctx.font = "50px Bold Verdana";
+    ctx.fillText("Game Over!", 240, 140);
+    ctx.strokeText("Game Over!", 240, 140);
+    
+    ctx.font = "30px Bold Verdana";
+    ctx.fillText("Click to Continue", 240, 240);
+    ctx.strokeText("Click to Continue", 240, 240);
     
     ctx.fill();
     ctx.stroke();
@@ -292,9 +311,9 @@ function animateSmoke() {
             smokeList.splice(i, 1); // remove the smoke particle that outside the canvas
         }
         else {
-            smokeList[i].x = smokeList[i].x - mineV
-            ctx.fillStyle = smokeColor
-            ctx.fillRect(smokeList[i].x, smokeList[i].y, 2, 2)
+            smokeList[i].x = smokeList[i].x - mineV;
+            ctx.fillStyle = smokeColor;
+            ctx.fillRect(smokeList[i].x, smokeList[i].y, 2, 2);
         }
     }
 }
@@ -332,11 +351,10 @@ function gameOver() {
     var y = randomFloat(100, 400);
 
 }
-
 function addMine() {
     newMine = {}
     newMine.x = canvas.width;
-    newMine.y = Math.floor(Math.random() * (canvas.height-mineHeight))
+    newMine.y = Math.floor(Math.random() * (canvas.height-mineHeight));
     mineList.push(newMine);
 }
 
@@ -344,6 +362,7 @@ function addSmokeTrail() {
     newParticle = {}
     newParticle.x = sharkX
     newParticle.y = sharkY + 4
+
     smokeList.push(newParticle);
 }
 
@@ -355,10 +374,10 @@ function clearScreen() {
 
 /* This is a nifty trick! */
 document.body.onmousedown = function() { 
-    if(!(mouseDown == 1)) {
+    if(!(mouseDown === 1)) {
         ++mouseDown;
     }
-}
+};
 document.body.onmouseup = function() {
     if(mouseDown > 0) {
         --mouseDown;
@@ -366,22 +385,23 @@ document.body.onmouseup = function() {
     if(gameState == "pause") {
         play();
     }
-}
+};
 
-document.body.onkeypress = function(e) {
-    if(e.keyCode == 32) { // spacebar
+document.body.onclick = function(e) {
+    /* if(e.keyCode == 32) { // spacebar
         if(gameState == "pause") {
             play();
         } else {
             pause();
         }
-    }
-    if(e.keyCode == 114) {
+    } */ 
+    
+    if(e.CLICK) {
         if(gameState != "play") {
-            setup()
+            setup();
         }
     }
-}
+};
 
 
 /**
