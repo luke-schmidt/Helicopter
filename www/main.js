@@ -25,13 +25,13 @@ mine.src = "images/mine.jpg";
 var chopperHeight = 26;
 var chopperWidth = 77;
 var chopper = new Image();
-chopper.src = "images/shark.png"
+chopper.src = "images/shark.png";
 
 var backgroundHeight = 350;
 var backgroundWidth = 702;
 var backgroundV = 2; // background scroll velocity
 var background = new Image();
-background.src = "images/underwater.jpg"
+background.src = "images/underwater.jpg";
 
 /* variables that will be reset every time setup is called: */
 var chopperX;
@@ -47,12 +47,24 @@ var scrollVal;
 var ascentRate;
 var descentRate;
 
+$(document).ready(function() {
+    document.addEventListener("deviceready", onDeviceReady, false);
+    //uncomment for testing in Chrome browser
+    //onDeviceReady();
+});
+
+function onDeviceReady() {
+    // lock the device orientation
+    console.log('Orientation is ' + screen.orientation);
+    screen.lockOrientation('landscape');
+}
+
+
 
 window.onload = function () { setup(); };
 
 function setup() {
-// lock the device orientation
-//screen.lockOrientation('landscape');
+
     
     gameState = "pause";
     clearScreen();
@@ -85,7 +97,7 @@ function setup() {
     ctx.font = "20px Bold Verdana";
     ctx.fillStyle = textColor;
     ctx.fillText('Press spacebar to play/pause', 10, 340);
-};
+}
 
 
 function play() {
@@ -301,9 +313,9 @@ function animateSmoke() {
             smokeList.splice(i, 1); // remove the smoke particle that outside the canvas
         }
         else {
-            smokeList[i].x = smokeList[i].x - mineV
-            ctx.fillStyle = smokeColor
-            ctx.fillRect(smokeList[i].x, smokeList[i].y, 2, 2)
+            smokeList[i].x = smokeList[i].x - mineV;
+            ctx.fillStyle = smokeColor;
+            ctx.fillRect(smokeList[i].x, smokeList[i].y, 2, 2);
         }
     }
 }
@@ -344,7 +356,7 @@ function gameOver() {
 function addMine() {
     newMine = {}
     newMine.x = canvas.width;
-    newMine.y = Math.floor(Math.random() * (canvas.height-mineHeight))
+    newMine.y = Math.floor(Math.random() * (canvas.height-mineHeight));
     mineList.push(newMine);
 }
 
@@ -363,7 +375,7 @@ function clearScreen() {
 
 /* This is a nifty trick! */
 document.body.onmousedown = function() { 
-    if(!(mouseDown == 1)) {
+    if(!(mouseDown === 1)) {
         ++mouseDown;
     }
 };
