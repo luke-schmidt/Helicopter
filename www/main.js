@@ -94,10 +94,8 @@ function setup() {
     ctx.drawImage(background, 0, 0, backgroundWidth, backgroundHeight);
     ctx.drawImage(chopper, chopperX, chopperY, chopperWidth, chopperHeight);
 
-    ctx.font = "20px Bold Verdana";
-    ctx.fillStyle = textColor;
-    ctx.fillText('Press spacebar to play/pause', 10, 340);
-}
+};
+
 
 
 function play() {
@@ -126,7 +124,6 @@ function draw() {
         animateMines();
         ctx.font = "20px Bold Verdana";
         ctx.fillStyle = textColor;
-        ctx.fillText('Press spacebar to play/pause', 10, 340);
         ctx.fillText('Score:'+ score, 600, 340);
         
         collisionCheck();
@@ -147,8 +144,8 @@ function drawCrash() {
     ctx.strokeText("Game Over!", 240, 140);
     
     ctx.font = "30px Bold Verdana";
-    ctx.fillText("Press R to Continue", 240, 240);
-    ctx.strokeText("Press R to Continue", 240, 240);
+    ctx.fillText("Click to Continue", 240, 240);
+    ctx.strokeText("Click to Continue", 240, 240);
     
     ctx.fill();
     ctx.stroke();
@@ -388,15 +385,16 @@ document.body.onmouseup = function() {
     }
 };
 
-document.body.onkeypress = function(e) {
-    if(e.keyCode == 32) { // spacebar
+document.body.onclick = function(e) {
+    /* if(e.keyCode == 32) { // spacebar
         if(gameState == "pause") {
             play();
         } else {
             pause();
         }
-    }
-    if(e.keyCode == 114) {
+    } */ 
+    
+    if(e.CLICK) {
         if(gameState != "play") {
             setup();
         }
