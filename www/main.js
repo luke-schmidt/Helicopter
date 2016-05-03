@@ -2,7 +2,6 @@
 /* global constants */
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
-//var canvas2D = canvas.getContext('2d'); //I added this
 var mouseDown = 0;
 var font = "16 verdana";
 
@@ -15,17 +14,19 @@ var gravity = 0.08;  // how quickly the descent rate increases
 var liftFactor = 0.04; // how quickly the climb rate increases
 var terminalVelocity = 5; // descent and ascent rate will never exceed this
 
-var mineV = 6; // brick velocity
+var mineV = 6; // mine velocity
 var mineInterval = 40; // difficulty level 
 var mineHeight = 60;
 var mineWidth = 30;
 var mine = new Image();
 mine.src = "images/mine.jpg";
 
-var chopperHeight = 26;
-var chopperWidth = 77;
-var chopper = new Image();
-chopper.src = "images/shark.png";
+
+var sharkHeight = 26;
+var sharkWidth = 77;
+var shark = new Image();
+shark.src = "images/shark.png"
+
 
 var backgroundHeight = 350;
 var backgroundWidth = 702;
@@ -34,8 +35,8 @@ var background = new Image();
 background.src = "images/underwater.jpg";
 
 /* variables that will be reset every time setup is called: */
-var chopperX;
-var chopperY;
+var sharkX;
+var sharkY;
 var iterationCount;
 //var brickList;
 var mineList;
@@ -69,14 +70,14 @@ function setup() {
     gameState = "pause";
     clearScreen();
     
-    chopper.src = "images/shark.png";
+    shark.src = "images/shark.png";
 
 //    brickList = new Array();
     mineList = new Array();
     smokeList = new Array();
 
-    chopperX = 100;
-    chopperY = 175;
+    sharkX = 100;
+    sharkY = 175;
 
     descentRate = initialDescentRate;
     ascentRate = initialAscentRate;
@@ -92,7 +93,7 @@ function setup() {
     addMine();
 
     ctx.drawImage(background, 0, 0, backgroundWidth, backgroundHeight);
-    ctx.drawImage(chopper, chopperX, chopperY, chopperWidth, chopperHeight);
+    ctx.drawImage(shark, sharkX, sharkY, sharkWidth, sharkHeight);
 
 }
 
@@ -119,7 +120,7 @@ function draw() {
     if(gameState == "play") {
         clearScreen();
         animateBackground();
-        animateChopper();
+        animateShark();
 //        animateBricks();
         animateMines();
         ctx.font = "20px Bold Verdana";
@@ -133,8 +134,8 @@ function draw() {
 }
 
 function drawCrash() {    
-    chopper.src = "chopper_burn.png";
-    ctx.drawImage(chopper, chopperX, chopperY, chopperWidth, chopperHeight);
+    shark.src = "chopper_burn.png";
+    ctx.drawImage(shark, sharkX, sharkY, sharkWidth, sharkHeight);
     
     ctx.fillstyle = "white";
     ctx.strokeStyle = "black";
@@ -151,17 +152,17 @@ function drawCrash() {
     ctx.stroke();
 }
 
-function animateChopper() {
+function animateShark() {
     if(mouseDown) {
         descentRate = initialDescentRate;
-        chopperY = chopperY - ascentRate;
+        sharkY = sharkY - ascentRate;
 
         if(!(ascentRate > terminalVelocity)) {
             ascentRate += liftFactor;
         }
     } else {
         ascentRate = initialAscentRate;
-        chopperY = chopperY + descentRate;
+        sharkY = sharkY + descentRate;
     
         if(!(descentRate > terminalVelocity)) {
             descentRate += gravity;
@@ -170,7 +171,7 @@ function animateChopper() {
     
      /* Array of particles (global variable)
 */
-var particles = [];
+ var particles = [];
 
  
     function randomFloat (min, max)
@@ -255,11 +256,11 @@ var particles = [];
 	}
 }
     // border detection
-    if( (chopperY < 0) || (chopperY > (canvas.height-chopperHeight)) ) {
+    if( (sharkY < 0) || (sharkY > (canvas.height-sharkHeight)) ) {
         gameOver();
     }
 
-    ctx.drawImage(chopper, chopperX, chopperY, chopperWidth, chopperHeight);
+    ctx.drawImage(shark, sharkX, sharkY, sharkWidth, sharkHeight);
     addSmokeTrail();
     animateSmoke();
 }
@@ -315,9 +316,12 @@ function animateBackground() {
  */
 function collisionCheck() {
     for(var i=0; i<mineList.length; i++) {
-        if (chopperX < (mineList[i].x + mineWidth) && (chopperX + chopperWidth) > mineList[i].x
-                    && chopperY < (mineList[i].y + mineHeight) && (chopperY + chopperHeight) > mineList[i].y ) {
+        if (sharkX < (mineList[i].x + mineWidth) && (sharkX + sharkWidth) > mineList[i].x
+                    && sharkY < (mineList[i].y + mineHeight) && (sharkY + sharkHeight) > mineList[i].y ) {
             gameOver();
+            createExplosion(x, y, "#FF0000");
+			
+			createExplosion(x, y, "#FF8518");
         }
     }
 }
@@ -327,10 +331,7 @@ function gameOver() {
     drawCrash();
     var x = randomFloat(100, 400);
     var y = randomFloat(100, 400);
-			
-			createExplosion(x, y, "#FF0000");
-			
-			createExplosion(x, y, "#FF8518");
+
 }
 function addMine() {
     newMine = {};
@@ -340,9 +341,10 @@ function addMine() {
 }
 
 function addSmokeTrail() {
-    newParticle = {};
-    newParticle.x = chopperX;
-    newParticle.y = chopperY + 4;
+    newParticle = {}
+    newParticle.x = sharkX
+    newParticle.y = sharkY + 4
+
     smokeList.push(newParticle);
 }
 
