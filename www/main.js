@@ -21,11 +21,17 @@ var mineWidth = 30;
 var mine = new Image();
 mine.src = "images/mine.jpg";
 
+var coinV = 6; // coin velocity
+var coinInterval = 45; // difficulty level 
+var coinHeight = 60;
+var coinWidth = 30;
+var coin = new Image();
+coin.src = "images/chinese-coin-1467663.jpg";
 
 var sharkHeight = 26;
 var sharkWidth = 77;
 var shark = new Image();
-shark.src = "images/shark.png"
+shark.src = "images/shark.png";
 
 
 var backgroundHeight = 350;
@@ -39,6 +45,7 @@ var sharkX;
 var sharkY;
 var iterationCount;
 var mineList;
+var coinList;
 var smokeList;
 var gameState;
 var score;
@@ -58,7 +65,7 @@ $(document).ready(function() {
 function onDeviceReady() {
     // lock the device orientation
     console.log('Orientation is ' + screen.orientation);
-    screen.lockOrientation('landscape');
+    window.screen.lockOrientation('landscape');
 }
 
 
@@ -75,6 +82,7 @@ function setup() {
 
     mineList = new Array();
     smokeList = new Array();
+    coinList = new Array();
 
     sharkX = 100;
     sharkY = 175;
@@ -90,11 +98,12 @@ function setup() {
     ctx.font = font;
 
     addMine();
+    addCoin();
 
     ctx.drawImage(background, 0, 0, backgroundWidth, backgroundHeight);
     ctx.drawImage(shark, sharkX, sharkY, sharkWidth, sharkHeight);
 
-};
+}
 
 
 
@@ -121,11 +130,13 @@ function draw() {
         animateBackground();
         animateShark();
         animateMines();
+        animateCoins();
         ctx.font = "20px Bold Verdana";
         ctx.fillStyle = textColor;
         ctx.fillText('Score:'+ score, 600, 340);
         
         collisionCheck();
+        collisionCheck2();
         
         window.requestAnimationFrame(draw, canvas);
     }
@@ -167,7 +178,6 @@ function animateShark() {
         }
     }
     
-
     // border detection
     if( (sharkY < 0) || (sharkY > (canvas.height-sharkHeight)) ) {
         gameOver();
@@ -199,6 +209,28 @@ function animateMines() {
         }
     }
 }
+
+function animateCoins() {
+    iterationCount++;
+    for(var i=0; i<coinList.length; i++) {
+        if(coinList[i].x < 0-coinWidth) {
+            coinList.splice(i, 1); // remove the brick that's outside the canvas
+        } 
+        else { 
+            coinList[i].x = coinList[i].x - coinV;
+            ctx.drawImage(coin, coinList[i].x, coinList[i].y, coinWidth, coinHeight);
+            
+            // If enough distance (based on brickInterval) has elapsed since 
+            // the last brick was created, create another one
+            if(iterationCount >= coinInterval) {
+                addCoin();
+                iterationCount = 0;
+                score=score+10;
+            }
+        }
+    }
+}
+
 
 function animateSmoke() {
     for(var i=0; i<smokeList.length; i++) {
@@ -237,6 +269,15 @@ function collisionCheck() {
     }
 }
 
+function collisionCheck2() {
+    for(var i=0; i<coinList.length; i++) {
+        if (sharkX < (coinList[i].x + coinWidth) && (sharkX + sharkWidth) > coinList[i].x
+                    && sharkY < (coinList[i].y + coinHeight) && (sharkY + sharkHeight) > coinList[i].y ) {
+            score=score+20;
+        }
+    }
+}
+
 function gameOver() {
     stop();
     drawCrash();
@@ -245,10 +286,17 @@ function gameOver() {
 
 }
 function addMine() {
-    newMine = {}
+    newMine = {};
     newMine.x = canvas.width;
     newMine.y = Math.floor(Math.random() * (canvas.height-mineHeight));
     mineList.push(newMine);
+}
+
+function addCoin() {
+    newCoin = {}
+    newCoin.x = canvas.width;
+    newCoin.y = Math.floor(Math.random() * (canvas.height-coinHeight));
+    coinList.push(newCoin);
 }
 
 function addSmokeTrail() {
@@ -265,7 +313,7 @@ function clearScreen() {
 }
 
 
-/* This is a nifty trick! */
+/* This is a nifty trick! */ 
 document.body.onmousedown = function() { 
     if(!(mouseDown === 1)) {
         ++mouseDown;
@@ -279,6 +327,30 @@ document.body.onmouseup = function() {
         play();
     }
 };
+
+
+// This is a niftier trick! Works with taps!
+$( function () {
+  $( document ).on( "vmousedown", "div", function() {
+    if(!(mouseDown === 1)) {
+        ++mouseDown;
+    }
+  }
+                  );
+});
+    
+    $( function () {
+        $( document ).on( "vmouseup", "div", function() {
+            if((mouseDown > 0)) {
+                --mouseDown;
+            }
+            
+            if (gameState == "pause") {
+                play();
+            }
+        }
+                        );
+    });
 
 document.body.onclick = function(e) {
     /* if(e.keyCode == 32) { // spacebar
