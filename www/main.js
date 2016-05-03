@@ -56,7 +56,7 @@ $(document).ready(function() {
 function onDeviceReady() {
     // lock the device orientation
     console.log('Orientation is ' + screen.orientation);
-    screen.lockOrientation('landscape');
+    window.screen.lockOrientation('landscape');
 }
 
 
@@ -94,7 +94,7 @@ function setup() {
     ctx.drawImage(background, 0, 0, backgroundWidth, backgroundHeight);
     ctx.drawImage(chopper, chopperX, chopperY, chopperWidth, chopperHeight);
 
-};
+}
 
 
 
@@ -254,24 +254,6 @@ var particles = [];
 		particles.push(particle);
 	}
 }
-    
-    function update (frameDelay)
-	{
-		// draw a white background to clear canvas
-		ctx.fillStyle = "#FFF";
-		ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-		
-		// update and draw particles
-		for (var i=0; i<particles.length; i++)
-		{
-			var particle = particles[i];
-			
-			particle.update(frameDelay);
-			particle.draw(ctx);
-		}
-	}
-    
-
     // border detection
     if( (chopperY < 0) || (chopperY > (canvas.height-chopperHeight)) ) {
         gameOver();
@@ -351,7 +333,7 @@ function gameOver() {
 			createExplosion(x, y, "#FF8518");
 }
 function addMine() {
-    newMine = {}
+    newMine = {};
     newMine.x = canvas.width;
     newMine.y = Math.floor(Math.random() * (canvas.height-mineHeight));
     mineList.push(newMine);
@@ -370,7 +352,7 @@ function clearScreen() {
 }
 
 
-/* This is a nifty trick! */
+/* This is a nifty trick! */ 
 document.body.onmousedown = function() { 
     if(!(mouseDown === 1)) {
         ++mouseDown;
@@ -384,6 +366,30 @@ document.body.onmouseup = function() {
         play();
     }
 };
+
+
+// This is a niftier trick! Works with taps!
+$( function () {
+  $( document ).on( "vmousedown", "div", function() {
+    if(!(mouseDown === 1)) {
+        ++mouseDown;
+    }
+  }
+                  );
+});
+    
+    $( function () {
+        $( document ).on( "vmouseup", "div", function() {
+            if((mouseDown > 0)) {
+                --mouseDown;
+            }
+            
+            if (gameState == "pause") {
+                play();
+            }
+        }
+                        );
+    });
 
 document.body.onclick = function(e) {
     /* if(e.keyCode == 32) { // spacebar
