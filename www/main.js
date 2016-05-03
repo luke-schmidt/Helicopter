@@ -362,7 +362,8 @@ function collisionCheck() {
 function collisionCheck2() {
     for(var i=0; i<coinList.length; i++) {
         if (sharkX < (coinList[i].x + coinWidth) && (sharkX + sharkWidth) > coinList[i].x
-                    && sharkY < (coinList[i].y + coinHeight) && (sharkY + sharkHeight) > coinList[i].y );
+                    && sharkY < (coinList[i].y + coinHeight) && (sharkY + sharkHeight) > coinList[i].y ) {
+        }
     }
 }
 
